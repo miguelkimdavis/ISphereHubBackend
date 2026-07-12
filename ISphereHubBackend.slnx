@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/ISphereHub.BuildingBlocks/ISphereHub.BuildingBlocks.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/ISphereHub/">
+    <Project Path="src/Services/ISphereHub/ISphereHub.Api/ISphereHub.Api.csproj" />
+    <Project Path="src/Services/ISphereHub/ISphereHub.Application/ISphereHub.Application.csproj" />
+    <Project Path="src/Services/ISphereHub/ISphereHub.Domain/ISphereHub.Domain.csproj" />
+    <Project Path="src/Services/ISphereHub/ISphereHub.Infrastructure/ISphereHub.Infrastructure.csproj" />
+  </Folder>
+</Solution>
