@@ -6,12 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Asp.Versioning.Mvc" Version="10.0.0" />
+		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+		<PackageReference Include="Scalar.AspNetCore" Version="2.14.10" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.7" />
+		<PackageReference Include="IdentityModel" Version="7.0.0" />
+	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\ISphereHub.BuildingBlocks\ISphereHub.BuildingBlocks.csproj" />
+    <ProjectReference Include="..\ISphereHub.Application\ISphereHub.Application.csproj" />
+    <ProjectReference Include="..\ISphereHub.Infrastructure\ISphereHub.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
