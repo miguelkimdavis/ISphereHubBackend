@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ISphereHub.BuildingBlocks.Dtos.OrderDtos
+{
+    public class OrderListResponse
+    {
+        public IReadOnlyList<OrderDto> Items { get; set; } = new List<OrderDto>();
+        public long TotalCount { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+        public int TotalPages => PageSize <= 0 ? 0 : (int)Math.Ceiling(TotalCount / (double)PageSize);
+    }
+}
