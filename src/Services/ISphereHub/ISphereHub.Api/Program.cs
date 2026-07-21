@@ -106,8 +106,6 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "ISphere Hub API v1");
 });
 
-app.UseHttpsRedirection();
-
 app.UseCors(CorsPolicyName);
 
 app.UseAuthentication();
