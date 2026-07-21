@@ -1,4 +1,6 @@
-﻿using ISphereHub.Application.Interfaces;
+﻿using CloudinaryDotNet;
+using ISphereHub.Application.Interfaces;
+using ISphereHub.BuildingBlocks.Configurations;
 using ISphereHub.Domain.Interfaces;
 using ISphereHub.Infrastructure.Auth;
 using ISphereHub.Infrastructure.Persistence;
@@ -6,6 +8,7 @@ using ISphereHub.Infrastructure.Repositories;
 using ISphereHub.Infrastructure.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +23,9 @@ namespace ISphereHub.Infrastructure
 
             services.Configure<MongoDbSettings>(configuration.GetSection(MongoDbSettings.SectionName));
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+            services.AddOptions<CloudinaryOptions>()
+                .Bind(configuration.GetSection(CloudinaryOptions.SectionName))
+                .ValidateOnStart(); 
 
             services.AddSingleton<MongoDbContext>();
 
@@ -30,7 +36,14 @@ namespace ISphereHub.Infrastructure
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
-            services.AddScoped<IImageUploadService, LocalImageUploadService>();
+            services.AddSingleton(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<CloudinaryOptions>>().Value;
+                var account = new Account(options.CloudName, options.ApiKey, options.ApiSecret);
+                return new Cloudinary(account);
+            });
+            services.AddScoped<IImageUploadService, CloudinaryImageUploadService>();
+
 
             return services;
         }

@@ -1,7 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
@@ -21,9 +20,6 @@ RUN dotnet publish "./ISphereHub.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-ENV ASPNETCORE_URLS=http://+:80
-EXPOSE 80
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 
-ENTRYPOINT ["dotnet", "ISphereHub.Api.dll"]
+ENTRYPOINT ["/bin/sh", "-c", "dotnet ISphereHub.Api.dll --urls http://+:${PORT:-8080}"]

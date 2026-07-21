@@ -53,9 +53,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// CORS: the storefront (index.html/script.js) and admin panel are served as
-// static files with no build step, so allow any origin to call the API. In
-// production, replace AllowAnyOrigin with your actual domain(s).
 const string CorsPolicyName = "ISphereHubClient";
 builder.Services.AddCors(options =>
 {
@@ -120,7 +117,5 @@ app.MapControllers();
 
 app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
 app.MapGet("/api/health", () => Results.Ok(new { status = "healthy", service = "ISphere Hub API", timeUtc = DateTime.UtcNow }));
-
-app.UseStaticFiles();
 
 app.Run();
